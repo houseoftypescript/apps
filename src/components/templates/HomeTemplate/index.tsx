@@ -4,10 +4,10 @@ import News, { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';
 import { Search } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
-import { FormControl, InputAdornment, TextField } from '@mui/material';
-import { useRouter } from 'next/router';
-
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import { Chip, FormControl, InputAdornment, TextField } from '@mui/material';
 import Container from '@mui/material/Container';
+import { useRouter } from 'next/router';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -18,7 +18,7 @@ import React, {
 import { Link as ScrollLink } from 'react-scroll';
 
 const Headlines = React.memo<{ category: string; country: string }>(
-  ({ category, country }: { category: string; country: string }) => {
+  ({ category, country }) => {
     const url = `http://localhost:8080/api/news/headlines?category=${category}&country=${country}&pageSize=16`;
     const { loading, error, data } = useAxios<Article[]>(url);
 
@@ -31,6 +31,43 @@ const Headlines = React.memo<{ category: string; country: string }>(
 );
 
 Headlines.displayName = 'Headlines';
+
+const Trends = React.memo<{ country: string }>(({ country }) => {
+  const router = useRouter();
+
+  const url = `http://localhost:8080/api/news/google-trends?country=${country}`;
+  const { loading, error, data } =
+    useAxios<{ country: string; trends: string[] }[]>(url);
+
+  if (loading || error || !data) return <></>;
+
+  const trends = data[0].trends;
+
+  return (
+    <div className="hidden md:block">
+      <div className="flex md:flex-wrap gap-2">
+        {trends.map((trend) => {
+          return (
+            <Chip
+              icon={
+                <TrendingUpIcon fontSize="small" sx={{ color: '#ffffff' }} />
+              }
+              key={trend}
+              label={trend}
+              variant="outlined"
+              className="text-white text-xs bg-gray-900/50 px-2"
+              onClick={() => {
+                router.push({ pathname: '/search', query: { q: trend } });
+              }}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+});
+
+Trends.displayName = 'Trends';
 
 export const HomeTemplate: React.FC = () => {
   const router = useRouter();
@@ -70,7 +107,7 @@ export const HomeTemplate: React.FC = () => {
           <main className="h-full">
             <Container className="h-full">
               <div className="h-full flex items-center">
-                <div className="w-full flex flex-col gap-4 md:gap-8">
+                <div className="w-full flex flex-col gap-2 md:gap-4">
                   <form onSubmit={search} className="w-full">
                     <FormControl variant="standard" className="w-full">
                       <TextField
@@ -100,6 +137,7 @@ export const HomeTemplate: React.FC = () => {
                       />
                     </FormControl>
                   </form>
+                  <Trends country={'united states'} />
                 </div>
               </div>
             </Container>

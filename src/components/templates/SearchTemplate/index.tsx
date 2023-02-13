@@ -1,16 +1,23 @@
-import search from '@/assets/background/search.jpeg';
+import searchBackground from '@/assets/background/search.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';
 import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import TextField from '@mui/material/TextField';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 export const News = React.memo<{ query: string }>(({ query }) => {
   const url = `http://localhost:8080/api/news?query=${query}&language=en`;
-  const { loading, error, data } = useAxios<Article[]>(url);
+  const { loading, error, data, refetch } = useAxios<Article[]>(url);
+
+  useEffect(() => {
+    refetch();
+  }, [query, refetch]);
 
   if (loading) {
     return (
@@ -80,18 +87,57 @@ export type SearchTemplateProps = {};
 
 export const SearchTemplate: React.FC<SearchTemplateProps> = () => {
   const router = useRouter();
-  const query: string = (router.query.q as string) || '';
+  const defaultQ: string = (router.query.q as string) || '';
+  const [q, setQ] = useState<string>(defaultQ);
+  const [query, setQuery] = useState<string>('');
+
+  const search = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setQ(query);
+    router.push({ pathname: '/search', query: { q: query } }, undefined, {
+      shallow: true,
+    });
+  };
 
   return (
     <div
       className="bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${search.src})` }}
+      style={{ backgroundImage: `url(${searchBackground.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
         <Navbar icon={<SearchIcon />} appName="HOM" />
         <main className="pb-8">
           <Container>
-            {query.length > 0 ? <News query={query} /> : <></>}
+            <form onSubmit={search} className="w-full pb-8">
+              <FormControl variant="standard" className="w-full">
+                <TextField
+                  fullWidth
+                  id="query"
+                  name="query"
+                  placeholder="Query"
+                  value={query}
+                  required
+                  onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                    setQuery(event.target.value)
+                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <button type="submit" className="bg-transparent">
+                          <SearchIcon className="text-gray-900" />
+                        </button>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      backgroundColor: 'rgb(255, 255, 255, 1)',
+                    },
+                  }}
+                />
+              </FormControl>
+            </form>
+            {q.length > 0 ? <News query={q} /> : <></>}
           </Container>
         </main>
       </div>
