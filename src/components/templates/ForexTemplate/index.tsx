@@ -1,4 +1,4 @@
-import forex from '@/assets/forex.jpeg';
+import forex from '@/assets/background/forex.jpeg';
 import Loading from '@/components/molecules/Loading';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';

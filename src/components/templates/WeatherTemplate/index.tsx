@@ -1,4 +1,4 @@
-import weather from '@/assets/weather.jpeg';
+import weather from '@/assets/background/weather.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';

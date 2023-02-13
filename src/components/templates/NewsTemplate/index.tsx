@@ -1,4 +1,4 @@
-import news from '@/assets/news.jpeg';
+import news from '@/assets/background/news.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';

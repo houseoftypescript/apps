@@ -5,7 +5,7 @@ export const content = {
     { id: 'weather', href: '/weather', title: 'weather' },
     { id: 'football', href: '/football', title: 'football' },
     { id: 'stock', href: '/stock', title: 'stock' },
-    { id: 'translate', href: '/translate', title: 'translate' },
+    { id: 'maps', href: '/maps', title: 'maps' },
   ],
 };
 

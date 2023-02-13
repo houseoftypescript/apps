@@ -1,7 +1,8 @@
+import FootballTemplate from '@/components/templates/FootballTemplate';
 import { NextPage } from 'next';
 
 const FootballPage: NextPage = () => {
-  return <></>;
+  return <FootballTemplate />;
 };
 
 export default FootballPage;

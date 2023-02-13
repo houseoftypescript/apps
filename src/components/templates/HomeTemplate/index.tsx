@@ -1,16 +1,14 @@
-import background from '@/assets/background.jpeg';
+import searchBackground from '@/assets/background/search.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import News, { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';
-import {
-  CandlestickChart,
-  Cloud,
-  CurrencyExchange,
-  Newspaper,
-  Search,
-  SportsSoccer,
-  Translate,
-} from '@mui/icons-material';
+import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
+import CloudIcon from '@mui/icons-material/Cloud';
+import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
+import MapIcon from '@mui/icons-material/Map';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import SearchIcon from '@mui/icons-material/Search';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { FormControl, InputAdornment, TextField } from '@mui/material';
 import Container from '@mui/material/Container';
 import Link from 'next/link';
@@ -64,11 +62,13 @@ export const HomeTemplate: React.FC = () => {
   return (
     <div
       className="bg-fixed bg-center bg-cover"
-      style={{ backgroundImage: `url(${background.src})` }}
+      style={{ backgroundImage: `url(${searchBackground.src})` }}
     >
       <div style={{ backgroundColor: bgColor }}>
         <section className="relative h-screen">
-          <Navbar appName="HOM" />
+          <div className="absolute w-full">
+            <Navbar appName="HOM" />
+          </div>
           <main className="h-full">
             <Container className="h-full">
               <div className="h-full flex items-center">
@@ -89,7 +89,7 @@ export const HomeTemplate: React.FC = () => {
                           endAdornment: (
                             <InputAdornment position="end">
                               <button type="submit" className="bg-transparent">
-                                <Search className="text-gray-900" />
+                                <SearchIcon className="text-gray-900" />
                               </button>
                             </InputAdornment>
                           ),
@@ -108,37 +108,37 @@ export const HomeTemplate: React.FC = () => {
                         {
                           id: 'news',
                           url: '/news',
-                          icon: <Newspaper className="w-1/2" />,
+                          icon: <NewspaperIcon className="w-1/2" />,
                           color: 'bg-red-700 hover:bg-red-900',
                         },
                         {
                           id: 'forex',
                           url: '/forex',
-                          icon: <CurrencyExchange className="w-1/2" />,
+                          icon: <CurrencyExchangeIcon className="w-1/2" />,
                           color: 'bg-green-700 hover:bg-green-900',
                         },
                         {
                           id: 'weather',
                           url: '/weather',
-                          icon: <Cloud className="w-1/2" />,
+                          icon: <CloudIcon className="w-1/2" />,
                           color: 'bg-blue-700 hover:bg-blue-900',
                         },
                         {
                           id: 'football',
                           url: '/football',
-                          icon: <SportsSoccer className="w-1/2" />,
+                          icon: <SportsSoccerIcon className="w-1/2" />,
                           color: 'bg-red-700 hover:bg-red-900',
                         },
                         {
                           id: 'stock',
                           url: '/stock',
-                          icon: <CandlestickChart className="w-1/2" />,
+                          icon: <CandlestickChartIcon className="w-1/2" />,
                           color: 'bg-green-700 hover:bg-green-900',
                         },
                         {
-                          id: 'translate',
-                          url: '/translate',
-                          icon: <Translate className="w-1/2" />,
+                          id: 'maps',
+                          url: '/maps',
+                          icon: <MapIcon className="w-1/2" />,
                           color: 'bg-blue-700 hover:bg-blue-900',
                         },
                       ].map(({ id, url, icon, color }) => {
