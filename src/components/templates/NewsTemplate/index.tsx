@@ -1,6 +1,7 @@
 import news from '@/assets/background/news.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
+import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Newspaper } from '@mui/icons-material';
 import BiotechIcon from '@mui/icons-material/Biotech';
@@ -16,7 +17,7 @@ import React, { useEffect, useState } from 'react';
 
 export const Headlines = React.memo<{ title: string; category: string }>(
   ({ title, category }) => {
-    const url = `http://localhost:8080/api/news/headlines?category=${category}&country=us`;
+    const url = `${BASE_URL}/news/headlines?category=${category}&country=us`;
     const { loading, error, data, refetch } = useAxios<Article[]>(url);
 
     useEffect(() => {

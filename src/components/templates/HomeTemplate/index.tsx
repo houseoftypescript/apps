@@ -1,6 +1,7 @@
 import searchBackground from '@/assets/background/search.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import News, { Article } from '@/components/organisms/News';
+import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Search } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -19,7 +20,7 @@ import { Link as ScrollLink } from 'react-scroll';
 
 const Headlines = React.memo<{ category: string; country: string }>(
   ({ category, country }) => {
-    const url = `http://localhost:8080/api/news/headlines?category=${category}&country=${country}&pageSize=16`;
+    const url = `${BASE_URL}/news/headlines?category=${category}&country=${country}&pageSize=16`;
     const { loading, error, data } = useAxios<Article[]>(url);
 
     return (
@@ -35,7 +36,7 @@ Headlines.displayName = 'Headlines';
 const Trends = React.memo<{ country: string }>(({ country }) => {
   const router = useRouter();
 
-  const url = `http://localhost:8080/api/news/google-trends?country=${country}`;
+  const url = `${BASE_URL}s/news/google-trends?country=${country}`;
   const { loading, error, data } =
     useAxios<{ country: string; trends: string[] }[]>(url);
 

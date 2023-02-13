@@ -24,8 +24,14 @@ jobs:
         run: yarn test
       - name: Build Production
         run: yarn build
+        env:
+          BASE_URL: https://homapis.vercel.app/api
+          NEXT_PUBLIC_BASE_URL: https://homapis.vercel.app/api
       - name: Export Static
         run: yarn export
+        env:
+          BASE_URL: https://homapis.vercel.app/api
+          NEXT_PUBLIC_BASE_URL: https://homapis.vercel.app/api
       - name: Add .nojekyll file
         run: touch ./out/.nojekyll
       - name: Deploy Pages
