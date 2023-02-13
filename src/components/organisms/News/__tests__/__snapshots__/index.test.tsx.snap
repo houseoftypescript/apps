@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`News to match snapshot 1`] = `
+<div>
+  <div
+    class="py-8 flex items-center justify-center"
+  >
+    <span
+      class="uppercase text-white"
+    >
+      Loading
+    </span>
+  </div>
+</div>
+`;

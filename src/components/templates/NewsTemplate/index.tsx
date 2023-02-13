@@ -2,6 +2,7 @@ import news from '@/assets/background/news.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';
+import { Newspaper } from '@mui/icons-material';
 import BiotechIcon from '@mui/icons-material/Biotech';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
@@ -13,49 +14,49 @@ import Container from '@mui/material/Container';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
-export const Headlines = React.memo<{ category: string }>(({ category }) => {
-  const url = `http://localhost:8080/api/news/headlines?category=${category}&country=us`;
-  const { loading, error, data, refetch } = useAxios<Article[]>(url);
+export const Headlines = React.memo<{ title: string; category: string }>(
+  ({ title, category }) => {
+    const url = `http://localhost:8080/api/news/headlines?category=${category}&country=us`;
+    const { loading, error, data, refetch } = useAxios<Article[]>(url);
 
-  useEffect(() => {
-    refetch();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [category]);
+    useEffect(() => {
+      refetch();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [category]);
 
-  if (loading) {
+    if (loading) {
+      return (
+        <div className="pb-8 flex items-center justify-center">
+          <span className="uppercase text-white">Loading</span>
+        </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="pb-8 flex items-center justify-center">
+          <span className="uppercase text-white">Error</span>
+        </div>
+      );
+    }
+
+    if (!data) {
+      return (
+        <div className="pb-8 flex items-center justify-center">
+          <span className="uppercase text-white">No Data</span>
+        </div>
+      );
+    }
+
     return (
-      <div className="pb-8 flex items-center justify-center">
-        <span className="uppercase text-white">Loading</span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="pb-8 flex items-center justify-center">
-        <span className="uppercase text-white">Error</span>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="pb-8 flex items-center justify-center">
-        <span className="uppercase text-white">No Data</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="pb-8">
-      <div className="flex pb-8 justify-center md:justify-start">
-        <h2 className="uppercase text-4xl">
-          {category} ({data.length})
-        </h2>
-      </div>
-      <div className="md:h-[70vh] md:overflow-hidden">
-        <div className="md:h-full md:overflow-y-scroll md:overflow-x-none">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <main>
+        <div className="pb-8">
+          <h2 className="uppercase text-xl md:text-2xl text-center">
+            {title} ({data.length})
+          </h2>
+        </div>
+        <div className="pb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {data
               .filter(({ urlToImage }) => urlToImage)
               .map(({ source, url, urlToImage, title, publishedAt }) => {
@@ -88,15 +89,21 @@ export const Headlines = React.memo<{ category: string }>(({ category }) => {
               })}
           </div>
         </div>
-      </div>
-    </div>
-  );
-});
+      </main>
+    );
+  }
+);
 
 Headlines.displayName = 'Headlines';
 
 export const NewsTemplate: React.FC = () => {
-  const [category, setCategory] = useState<string>('general');
+  const [state, setState] = useState<{
+    title: string;
+    category: string;
+  }>({
+    title: 'Top Stories',
+    category: 'general',
+  });
 
   return (
     <div
@@ -104,55 +111,77 @@ export const NewsTemplate: React.FC = () => {
       style={{ backgroundImage: `url(${news.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="news" />
+        <Navbar icon={<Newspaper />} appName="news" />
+        <div className="pb-8">
+          <Container>
+            <section className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {[
+                {
+                  icon: <TrendingUpIcon />,
+                  category: 'general',
+                  title: 'Top Stories',
+                },
+                {
+                  icon: <BusinessCenterIcon />,
+                  title: 'business',
+                  category: 'business',
+                },
+                {
+                  icon: <MovieIcon />,
+                  title: 'entertainment',
+                  category: 'entertainment',
+                },
+                {
+                  icon: <HealthAndSafetyIcon />,
+                  title: 'health',
+                  category: 'health',
+                },
+                {
+                  icon: <BiotechIcon />,
+                  title: 'science',
+                  category: 'science',
+                },
+                {
+                  icon: <SportsSoccerIcon />,
+                  title: 'sports',
+                  category: 'sports',
+                },
+                {
+                  icon: <LaptopMacIcon />,
+                  title: 'technology',
+                  category: 'technology',
+                },
+              ].map(({ icon, title, category }, index: number) => {
+                return (
+                  <div
+                    key={`category-${category}`}
+                    className={index === 0 ? 'col-span-2' : 'col-span-1'}
+                  >
+                    <div
+                      role="button"
+                      className={`p-4 border rounded ${
+                        state.category === category
+                          ? 'bg-white text-gray-900'
+                          : ''
+                      }`}
+                      onClick={() => setState({ title, category })}
+                    >
+                      <div className="flex items-center justify-start gap-2">
+                        {icon}
+                        <span className="capitalize text-sm md:text-base">
+                          {title}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </section>
+          </Container>
+        </div>
         <main className="pb-8">
           <Container>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-y-8 md:gap-8">
-              <div className="col-span-1">
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
-                  {[
-                    {
-                      icon: <TrendingUpIcon />,
-                      title: 'general',
-                      alt: 'Top Stories',
-                    },
-                    { icon: <BusinessCenterIcon />, title: 'business' },
-                    { icon: <MovieIcon />, title: 'entertainment' },
-                    { icon: <HealthAndSafetyIcon />, title: 'health' },
-                    { icon: <BiotechIcon />, title: 'science' },
-                    { icon: <SportsSoccerIcon />, title: 'sports' },
-                    { icon: <LaptopMacIcon />, title: 'technology' },
-                  ].map(({ icon, title, alt = '' }, index: number) => {
-                    return (
-                      <div
-                        key={`category-${title}`}
-                        className={
-                          index === 0
-                            ? 'col-span-2 md:col-span-1'
-                            : 'col-span-1'
-                        }
-                      >
-                        <div
-                          role="button"
-                          className={`p-4 border rounded ${
-                            category === title ? 'bg-white text-gray-900' : ''
-                          }`}
-                          onClick={() => setCategory(title)}
-                        >
-                          <div className="flex items-center justify-start gap-2">
-                            {icon}
-                            <span className="capitalize">{alt || title}</span>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-              <div className="col-span-3">
-                <Headlines category={category} />
-              </div>
-            </div>
+            <Headlines title={state.title} category={state.category} />
           </Container>
         </main>
       </div>

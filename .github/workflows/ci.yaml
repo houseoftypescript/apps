@@ -1,11 +1,15 @@
-name: CD
+name: CI
 
 on:
   push:
     branches:
       - master
+      - develop
+      - hotfix/**
+      - feature/**
+      - renovate/**
     paths:
-      - .github/workflows/cd.yaml
+      - .github/workflows/ci.yaml
 
 jobs:
   deploy-pages:
@@ -26,10 +30,3 @@ jobs:
         run: yarn build
       - name: Export Static
         run: yarn export
-      - name: Deploy Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.1
-        with:
-          token: ${{ secrets.GHP_TOKEN }}
-          branch: gh-pages
-          folder: out
-          clean: true

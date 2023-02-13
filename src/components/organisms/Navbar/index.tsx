@@ -5,13 +5,17 @@ import Container from '@mui/material/Container';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Link from 'next/link';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 export type NavbarProps = {
+  icon: ReactNode;
   appName: string;
 };
 
-export const Navbar: React.FC<NavbarProps> = ({ appName = '' }) => {
+export const Navbar: React.FC<NavbarProps> = ({
+  icon = <></>,
+  appName = '',
+}) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -26,8 +30,13 @@ export const Navbar: React.FC<NavbarProps> = ({ appName = '' }) => {
     <nav className="py-8">
       <Container>
         <div className="flex justify-between text-white">
-          <h1 className="text-4xl uppercase">
-            <Link href="/">{appName}</Link>
+          <h1 className="text-2xl uppercase">
+            <Link href="/">
+              <div className="flex items-center gap-2">
+                {icon}
+                {appName}
+              </div>
+            </Link>
           </h1>
           <div>
             <Button onClick={handleClick} className="p-0 text-white">
@@ -46,11 +55,14 @@ export const Navbar: React.FC<NavbarProps> = ({ appName = '' }) => {
                 'aria-labelledby': 'basic-button',
               }}
             >
-              {content.apps.map(({ id, href, title }) => {
+              {content.apps.map(({ id, href, title, icon }) => {
                 return (
                   <MenuItem key={id}>
                     <Link href={href} className="capitalize">
-                      {title}
+                      <div className="flex items-center gap-2">
+                        {icon}
+                        {title}
+                      </div>
                     </Link>
                   </MenuItem>
                 );

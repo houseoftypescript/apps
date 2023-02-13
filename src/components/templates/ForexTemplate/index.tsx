@@ -4,6 +4,7 @@ import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import currencyFormatter from '@/utils/currency-formatter';
+import { CurrencyExchange } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 
 const ForexRates = () => {
@@ -60,7 +61,7 @@ export const ForexTemplate: React.FC = () => {
       style={{ backgroundImage: `url(${forex.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="forex" />
+        <Navbar icon={<CurrencyExchange />} appName="forex" />
         <main className="pb-8">
           <Container>
             <ForexRates />

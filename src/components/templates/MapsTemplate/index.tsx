@@ -1,5 +1,6 @@
 import maps from '@/assets/background/maps.jpeg';
 import Navbar from '@/components/organisms/Navbar';
+import { Map } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 
 export const MapsTemplate: React.FC = () => {
@@ -9,7 +10,7 @@ export const MapsTemplate: React.FC = () => {
       style={{ backgroundImage: `url(${maps.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="maps" />
+        <Navbar icon={<Map />} appName="maps" />
         <main className="pb-8">
           <Container></Container>
         </main>

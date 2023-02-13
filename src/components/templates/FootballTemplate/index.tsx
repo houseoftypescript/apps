@@ -3,11 +3,11 @@ import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Container from '@mui/material/Container';
-import Image from 'next/image';
 
 type Match = {
   id: number;
@@ -103,11 +103,11 @@ export const Matches: React.FC = () => {
                         </div>
                         <div className="flex justify-between items-center">
                           <div>{match.homeTeam.name}</div>
-                          <div>{match.score.fullTime.home}</div>
+                          <div>{match.score.fullTime.home || 'N/A'}</div>
                         </div>
                         <div className="flex justify-between items-center">
                           <div>{match.awayTeam.name}</div>
-                          <div>{match.score.fullTime.away}</div>
+                          <div>{match.score.fullTime.away || 'N/A'}</div>
                         </div>
                       </div>
                     );
@@ -128,7 +128,7 @@ export const FootballTemplate: React.FC = () => {
       style={{ backgroundImage: `url(${football.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="football" />
+        <Navbar icon={<SportsSoccerIcon />} appName="football" />
         <main className="pb-8">
           <Container>
             <Matches />

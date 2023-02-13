@@ -2,16 +2,12 @@ import searchBackground from '@/assets/background/search.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import News, { Article } from '@/components/organisms/News';
 import useAxios from '@/hooks/use-axios';
-import CandlestickChartIcon from '@mui/icons-material/CandlestickChart';
-import CloudIcon from '@mui/icons-material/Cloud';
-import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
-import MapIcon from '@mui/icons-material/Map';
-import NewspaperIcon from '@mui/icons-material/Newspaper';
+import { Search } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
-import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
 import { FormControl, InputAdornment, TextField } from '@mui/material';
+import { useRouter } from 'next/router';
+
 import Container from '@mui/material/Container';
-import Link from 'next/link';
 import React, {
   ChangeEvent,
   FormEvent,
@@ -37,7 +33,8 @@ const Headlines = React.memo<{ category: string; country: string }>(
 Headlines.displayName = 'Headlines';
 
 export const HomeTemplate: React.FC = () => {
-  const [query, setQuery] = useState('');
+  const router = useRouter();
+  const [query, setQuery] = useState<string>('');
   const [bgColor, setBgColor] = useState<string>(`rgba(17, 24, 39, 0)`);
 
   const onScroll = useCallback(() => {
@@ -57,6 +54,7 @@ export const HomeTemplate: React.FC = () => {
 
   const search = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    router.push({ pathname: '/search', query: { q: query } });
   };
 
   return (
@@ -67,7 +65,7 @@ export const HomeTemplate: React.FC = () => {
       <div style={{ backgroundColor: bgColor }}>
         <section className="relative h-screen">
           <div className="absolute w-full">
-            <Navbar appName="HOM" />
+            <Navbar icon={<Search />} appName="HOM" />
           </div>
           <main className="h-full">
             <Container className="h-full">
@@ -102,65 +100,6 @@ export const HomeTemplate: React.FC = () => {
                       />
                     </FormControl>
                   </form>
-                  <div className="mx-auto w-full md:w-1/2">
-                    <div className="grid grid-cols-6 gap-4 md:gap-8">
-                      {[
-                        {
-                          id: 'news',
-                          url: '/news',
-                          icon: <NewspaperIcon className="w-1/2" />,
-                          color: 'bg-red-700 hover:bg-red-900',
-                        },
-                        {
-                          id: 'forex',
-                          url: '/forex',
-                          icon: <CurrencyExchangeIcon className="w-1/2" />,
-                          color: 'bg-green-700 hover:bg-green-900',
-                        },
-                        {
-                          id: 'weather',
-                          url: '/weather',
-                          icon: <CloudIcon className="w-1/2" />,
-                          color: 'bg-blue-700 hover:bg-blue-900',
-                        },
-                        {
-                          id: 'football',
-                          url: '/football',
-                          icon: <SportsSoccerIcon className="w-1/2" />,
-                          color: 'bg-red-700 hover:bg-red-900',
-                        },
-                        {
-                          id: 'stock',
-                          url: '/stock',
-                          icon: <CandlestickChartIcon className="w-1/2" />,
-                          color: 'bg-green-700 hover:bg-green-900',
-                        },
-                        {
-                          id: 'maps',
-                          url: '/maps',
-                          icon: <MapIcon className="w-1/2" />,
-                          color: 'bg-blue-700 hover:bg-blue-900',
-                        },
-                      ].map(({ id, url, icon, color }) => {
-                        return (
-                          <div key={`app-${id}`} className="col-span-1">
-                            <div
-                              className="w-full relative"
-                              style={{ paddingBottom: '100%' }}
-                            >
-                              <Link href={url}>
-                                <button
-                                  className={`absolute w-full h-full flex items-center justify-center rounded hover:rounded-xl text-white transition-all ${color}`}
-                                >
-                                  {icon}
-                                </button>
-                              </Link>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
                 </div>
               </div>
             </Container>

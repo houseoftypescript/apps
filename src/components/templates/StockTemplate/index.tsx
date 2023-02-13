@@ -1,5 +1,6 @@
 import stock from '@/assets/background/stock.jpeg';
 import Navbar from '@/components/organisms/Navbar';
+import { CandlestickChart } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 
 export const StockTemplate: React.FC = () => {
@@ -9,7 +10,7 @@ export const StockTemplate: React.FC = () => {
       style={{ backgroundImage: `url(${stock.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="stock" />
+        <Navbar icon={<CandlestickChart />} appName="stock" />
         <main className="pb-8">
           <Container></Container>
         </main>

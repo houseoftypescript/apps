@@ -2,6 +2,7 @@ import weather from '@/assets/background/weather.jpeg';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
+import { Cloud } from '@mui/icons-material';
 import { Container } from '@mui/material';
 import { NextPage } from 'next';
 
@@ -77,7 +78,7 @@ export const WeatherTemplate: NextPage = () => {
       style={{ backgroundImage: `url(${weather.src})` }}
     >
       <div className="min-h-screen bg-gray-900/75">
-        <Navbar appName="weather" />
+        <Navbar icon={<Cloud />} appName="weather" />
         <main className="pb-8">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

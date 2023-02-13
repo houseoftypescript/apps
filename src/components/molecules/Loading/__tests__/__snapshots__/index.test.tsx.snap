@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading to match snapshot 1`] = `
+<div>
+  <div
+    class="border p-8 rounded"
+  >
+    <div
+      class="flex items-center justify-center"
+    >
+      <span
+        class="uppercase"
+      >
+        Loading
+      </span>
+    </div>
+  </div>
+</div>
+`;
