@@ -18,7 +18,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { Link as ScrollLink } from 'react-scroll';
 
 const Headlines = React.memo<{ category: string; country: string }>(
   ({ category, country }) => {
@@ -35,64 +34,9 @@ const Headlines = React.memo<{ category: string; country: string }>(
 
 Headlines.displayName = 'Headlines';
 
-const Trends = React.memo<{ country: string }>(({ country }) => {
-  const router = useRouter();
-
-  const url = `${BASE_URL}/news/google-trends?country=${country}`;
-  const { loading, error, data } =
-    useAxios<{ country: string; trends: string[] }[]>(url);
-
-  if (loading || error || !data) return <></>;
-
-  const trends = data[0].trends;
-
-  return (
-    <div className="block w-full overflow-auto">
-      <div className="flex md:flex-wrap gap-2">
-        {trends.map((trend) => {
-          return (
-            <div key={trend}>
-              <Chip
-                icon={
-                  <TrendingUpIcon fontSize="small" sx={{ color: '#ffffff' }} />
-                }
-                label={trend}
-                variant="outlined"
-                className="text-white text-xs bg-gray-900/50 px-2"
-                onClick={() => {
-                  router.push({ pathname: '/search', query: { q: trend } });
-                }}
-                sx={{ '.MuiChip-icon': { color: '#ffffff' } }}
-              />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-});
-
-Trends.displayName = 'Trends';
-
 export const HomeTemplate: React.FC = () => {
   const router = useRouter();
   const [query, setQuery] = useState<string>('');
-  const [bgColor, setBgColor] = useState<string>(`rgba(17, 24, 39, 0)`);
-
-  const onScroll = useCallback(() => {
-    const { pageYOffset, scrollY, innerHeight } = window;
-    const scrollHeight: number = pageYOffset || scrollY || 0;
-    const percentage = (scrollHeight / innerHeight).toFixed(2);
-    const bgColor: string = `rgba(17, 24, 39, ${percentage})`;
-    setBgColor(bgColor);
-  }, []);
-
-  useEffect(() => {
-    //add eventlistener to window
-    window.addEventListener('scroll', onScroll, { passive: true });
-    // remove event on unmount to prevent a memory leak with the cleanup
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [onScroll]);
 
   const search = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -136,7 +80,6 @@ export const HomeTemplate: React.FC = () => {
                     />
                   </FormControl>
                 </form>
-                <Trends country={'united states'} />
               </div>
             </div>
           </Container>
