@@ -1,21 +1,21 @@
 import stock from '@/assets/background/stock.jpeg';
+import Background from '@/components/organisms/Background';
+import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import { CandlestickChart } from '@mui/icons-material';
 import Container from '@mui/material/Container';
 
 export const StockTemplate: React.FC = () => {
   return (
-    <div
-      className="bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${stock.src})` }}
-    >
-      <div className="min-h-screen bg-gray-900/75">
+    <Background backgroundImage={stock}>
+      <div className="min-h-screen flex flex-col">
         <Navbar icon={<CandlestickChart />} appName="stock" />
-        <main className="pb-8">
+        <main className="grow">
           <Container></Container>
         </main>
+        <Footer />
       </div>
-    </div>
+    </Background>
   );
 };
 

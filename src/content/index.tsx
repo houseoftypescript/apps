@@ -4,6 +4,7 @@ import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import MapIcon from '@mui/icons-material/Map';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import PolicyIcon from '@mui/icons-material/Policy';
 
 export const content = {
   apps: [
@@ -28,6 +29,12 @@ export const content = {
       icon: <CandlestickChartIcon />,
     },
     { id: 'maps', href: '/maps', title: 'maps', icon: <MapIcon /> },
+    {
+      id: 'congress',
+      href: '/congress',
+      title: 'congress',
+      icon: <PolicyIcon />,
+    },
   ],
 };
 

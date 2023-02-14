@@ -1,4 +1,5 @@
 import searchBackground from '@/assets/background/search.jpeg';
+import Background from '@/components/organisms/Background';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
 import { BASE_URL } from '@/environments';
@@ -101,13 +102,10 @@ export const SearchTemplate: React.FC<SearchTemplateProps> = () => {
   };
 
   return (
-    <div
-      className="bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${searchBackground.src})` }}
-    >
-      <div className="min-h-screen bg-gray-900/75">
+    <Background backgroundImage={searchBackground}>
+      <div className="min-h-screen flex flex-col">
         <Navbar icon={<SearchIcon />} appName="HOM" />
-        <main className="pb-8">
+        <main className="grow">
           <Container>
             <form onSubmit={search} className="w-full pb-8">
               <FormControl variant="standard" className="w-full">
@@ -142,7 +140,7 @@ export const SearchTemplate: React.FC<SearchTemplateProps> = () => {
           </Container>
         </main>
       </div>
-    </div>
+    </Background>
   );
 };
 

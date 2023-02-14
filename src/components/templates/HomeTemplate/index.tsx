@@ -1,4 +1,6 @@
 import searchBackground from '@/assets/background/search.jpeg';
+import Background from '@/components/organisms/Background';
+import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import News, { Article } from '@/components/organisms/News';
 import { BASE_URL } from '@/environments';
@@ -36,7 +38,7 @@ Headlines.displayName = 'Headlines';
 const Trends = React.memo<{ country: string }>(({ country }) => {
   const router = useRouter();
 
-  const url = `${BASE_URL}s/news/google-trends?country=${country}`;
+  const url = `${BASE_URL}/news/google-trends?country=${country}`;
   const { loading, error, data } =
     useAxios<{ country: string; trends: string[] }[]>(url);
 
@@ -45,22 +47,24 @@ const Trends = React.memo<{ country: string }>(({ country }) => {
   const trends = data[0].trends;
 
   return (
-    <div className="hidden md:block">
+    <div className="block w-full overflow-auto">
       <div className="flex md:flex-wrap gap-2">
         {trends.map((trend) => {
           return (
-            <Chip
-              icon={
-                <TrendingUpIcon fontSize="small" sx={{ color: '#ffffff' }} />
-              }
-              key={trend}
-              label={trend}
-              variant="outlined"
-              className="text-white text-xs bg-gray-900/50 px-2"
-              onClick={() => {
-                router.push({ pathname: '/search', query: { q: trend } });
-              }}
-            />
+            <div key={trend}>
+              <Chip
+                icon={
+                  <TrendingUpIcon fontSize="small" sx={{ color: '#ffffff' }} />
+                }
+                label={trend}
+                variant="outlined"
+                className="text-white text-xs bg-gray-900/50 px-2"
+                onClick={() => {
+                  router.push({ pathname: '/search', query: { q: trend } });
+                }}
+                sx={{ '.MuiChip-icon': { color: '#ffffff' } }}
+              />
+            </div>
           );
         })}
       </div>
@@ -96,76 +100,53 @@ export const HomeTemplate: React.FC = () => {
   };
 
   return (
-    <div
-      className="bg-fixed bg-center bg-cover"
-      style={{ backgroundImage: `url(${searchBackground.src})` }}
-    >
-      <div style={{ backgroundColor: bgColor }}>
-        <section className="relative h-screen">
-          <div className="absolute w-full">
-            <Navbar icon={<Search />} appName="HOM" />
-          </div>
-          <main className="h-full">
-            <Container className="h-full">
-              <div className="h-full flex items-center">
-                <div className="w-full flex flex-col gap-2 md:gap-4">
-                  <form onSubmit={search} className="w-full">
-                    <FormControl variant="standard" className="w-full">
-                      <TextField
-                        fullWidth
-                        id="query"
-                        name="query"
-                        placeholder="Query"
-                        value={query}
-                        required
-                        onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                          setQuery(event.target.value)
-                        }
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <button type="submit" className="bg-transparent">
-                                <SearchIcon className="text-gray-900" />
-                              </button>
-                            </InputAdornment>
-                          ),
-                        }}
-                        sx={{
-                          '& .MuiInputBase-root': {
-                            backgroundColor: 'rgb(255, 255, 255, 1)',
-                          },
-                        }}
-                      />
-                    </FormControl>
-                  </form>
-                  <Trends country={'united states'} />
-                </div>
+    <Background backgroundImage={searchBackground}>
+      <section className="h-screen flex flex-col">
+        <Navbar icon={<Search />} appName="HOM" />
+        <main className="grow">
+          <Container className="h-full">
+            <div className="h-full flex items-center">
+              <div className="w-full flex flex-col gap-2 md:gap-4">
+                <form onSubmit={search} className="w-full">
+                  <FormControl variant="standard" className="w-full">
+                    <TextField
+                      fullWidth
+                      id="query"
+                      name="query"
+                      placeholder="Query"
+                      value={query}
+                      required
+                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+                        setQuery(event.target.value)
+                      }
+                      InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <button type="submit" className="bg-transparent">
+                              <SearchIcon className="text-gray-900" />
+                            </button>
+                          </InputAdornment>
+                        ),
+                      }}
+                      sx={{
+                        '& .MuiInputBase-root': {
+                          backgroundColor: 'rgb(255, 255, 255, 1)',
+                        },
+                      }}
+                    />
+                  </FormControl>
+                </form>
+                <Trends country={'united states'} />
               </div>
-            </Container>
-          </main>
-          <footer className="absolute bottom-0 w-full">
-            <Container>
-              <div className="flex justify-between text-white py-8">
-                <ScrollLink
-                  to="headlines"
-                  spy={true}
-                  smooth={true}
-                  offset={0}
-                  duration={500}
-                  className="cursor-pointer"
-                >
-                  <p>Headlines</p>
-                </ScrollLink>
-                <p>&copy; 2023 HOM</p>
-              </div>
-            </Container>
-          </footer>
-        </section>
-        <section id="headlines">
-          <Headlines category="general" country="us" />
-        </section>
-      </div>
-    </div>
+            </div>
+          </Container>
+        </main>
+        <Footer />
+      </section>
+      <section id="headlines">
+        <Headlines category="general" country="us" />
+      </section>
+    </Background>
   );
 };
 

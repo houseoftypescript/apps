@@ -1,9 +1,13 @@
 import football from '@/assets/background/football.jpeg';
+import Loading from '@/components/molecules/Loading';
+import Background from '@/components/organisms/Background';
+import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
+import { Paper } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -38,44 +42,14 @@ export const Matches: React.FC = () => {
   const url = `${BASE_URL}/football/teams/64/matches`;
   const { loading, error, data } = useAxios<Match[]>(url);
 
-  if (loading) {
-    return (
-      <div className="border p-8 rounded">
-        <div className="flex items-center justify-center">
-          <span className="uppercase">Loading</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="border p-8 rounded">
-        <div className="flex items-center justify-center">
-          <span className="uppercase">{error.message || 'Error'}</span>
-        </div>
-      </div>
-    );
-  }
-
-  if (!data) {
-    return (
-      <div className="border p-8 rounded">
-        <div className="flex items-center justify-center">
-          <span className="uppercase">No Data</span>
-        </div>
-      </div>
-    );
-  }
-
   const statuses: string[] = [
-    ...new Set(data.map((match: Match) => match.status)),
+    ...new Set((data || []).map((match: Match) => match.status)),
   ]
     .sort()
     .reverse();
 
   return (
-    <>
+    <Loading loading={loading} error={error} data={data}>
       {statuses.map((status) => {
         return (
           <Accordion key={`status-${status}`}>
@@ -83,8 +57,8 @@ export const Matches: React.FC = () => {
               <h2>{status}</h2>
             </AccordionSummary>
             <AccordionDetails>
-              <div className="flex flex-col gap-4">
-                {data
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {(data || [])
                   .filter((match: Match) => match.status === status)
                   .map((match: Match) => {
                     const [date] = new Date(match.utcDate)
@@ -103,11 +77,11 @@ export const Matches: React.FC = () => {
                         </div>
                         <div className="flex justify-between items-center">
                           <div>{match.homeTeam.name}</div>
-                          <div>{match.score.fullTime.home || 'N/A'}</div>
+                          <div>{match.score.fullTime.home}</div>
                         </div>
                         <div className="flex justify-between items-center">
                           <div>{match.awayTeam.name}</div>
-                          <div>{match.score.fullTime.away || 'N/A'}</div>
+                          <div>{match.score.fullTime.away}</div>
                         </div>
                       </div>
                     );
@@ -117,25 +91,23 @@ export const Matches: React.FC = () => {
           </Accordion>
         );
       })}
-    </>
+    </Loading>
   );
 };
 
 export const FootballTemplate: React.FC = () => {
   return (
-    <div
-      className="bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${football.src})` }}
-    >
-      <div className="min-h-screen bg-gray-900/75">
+    <Background backgroundImage={football}>
+      <div className="min-h-screen flex flex-col">
         <Navbar icon={<SportsSoccerIcon />} appName="football" />
-        <main className="pb-8">
+        <main className="grow">
           <Container>
             <Matches />
           </Container>
         </main>
+        <Footer />
       </div>
-    </div>
+    </Background>
   );
 };
 

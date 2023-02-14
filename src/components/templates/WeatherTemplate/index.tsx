@@ -1,10 +1,11 @@
 import weather from '@/assets/background/weather.jpeg';
+import Background from '@/components/organisms/Background';
+import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Cloud } from '@mui/icons-material';
 import { Container } from '@mui/material';
-import { NextPage } from 'next';
 
 const Weather: React.FC<{ query: string }> = ({ query }) => {
   const { loading, error, data } = useAxios<{
@@ -71,15 +72,12 @@ const Weather: React.FC<{ query: string }> = ({ query }) => {
   );
 };
 
-export const WeatherTemplate: NextPage = () => {
+export const WeatherTemplate: React.FC = () => {
   return (
-    <div
-      className="bg-fixed bg-center bg-cover text-white"
-      style={{ backgroundImage: `url(${weather.src})` }}
-    >
-      <div className="min-h-screen bg-gray-900/75">
+    <Background backgroundImage={weather}>
+      <div className="min-h-screen flex flex-col">
         <Navbar icon={<Cloud />} appName="weather" />
-        <main className="pb-8">
+        <main className="grow">
           <Container>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="col-span-1">
@@ -115,8 +113,9 @@ export const WeatherTemplate: NextPage = () => {
             </div>
           </Container>
         </main>
+        <Footer />
       </div>
-    </div>
+    </Background>
   );
 };
 
