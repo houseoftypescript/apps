@@ -70,11 +70,12 @@ export const News: React.FC<NewsProps> = ({
                       <div className="flex flex-col gap-2">
                         {(source.name || '').length > 0 ? (
                           <p className="text-sm text-gray-100">
-                            {source.name || ''} - {date}
+                            {source.name || ''}
                           </p>
                         ) : (
                           <></>
-                        )}
+                        )}{' '}
+                        <p className="text-sm text-gray-100">{date}</p>
                         <h2 className="font-medium">{title}</h2>
                       </div>
                     </div>

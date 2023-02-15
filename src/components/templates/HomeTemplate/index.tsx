@@ -7,17 +7,10 @@ import { BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Search } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import { Chip, FormControl, InputAdornment, TextField } from '@mui/material';
+import { FormControl, InputAdornment, TextField } from '@mui/material';
 import Container from '@mui/material/Container';
 import { useRouter } from 'next/router';
-import React, {
-  ChangeEvent,
-  FormEvent,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 const Headlines = React.memo<{ category: string; country: string }>(
   ({ category, country }) => {

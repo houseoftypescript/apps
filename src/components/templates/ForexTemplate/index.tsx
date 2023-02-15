@@ -39,36 +39,28 @@ const ForexRates = () => {
   return (
     <Loading loading={loading} error={error} data={data}>
       <Paper>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell className="font-bold">Code</TableCell>
-                <TableCell className="font-bold text-right">Rate</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {(data || [])
-                .map(({ code, rate }) => {
-                  const newRate = parseFloat(
-                    ((eurRate / rate) * vndRate).toFixed(2)
-                  );
-                  return { code, rate: newRate };
-                })
-                .sort((a, b) => (a.rate < b.rate ? 1 : -1))
-                .map(({ code, rate }) => {
-                  return (
-                    <TableRow key={code}>
-                      <TableCell>{code}</TableCell>
-                      <TableCell className="text-right">
-                        {currencyFormatter(rate)}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div className="rounded">
+          <div className="flex justify-between p-4">
+            <p className="font-medium uppercase">Code</p>
+            <p className="font-medium uppercase">Rate</p>
+          </div>
+          {(data || [])
+            .map(({ code, rate }) => {
+              const newRate = parseFloat(
+                ((eurRate / rate) * vndRate).toFixed(2)
+              );
+              return { code, rate: newRate };
+            })
+            .sort((a, b) => (a.rate < b.rate ? 1 : -1))
+            .map(({ code, rate }) => {
+              return (
+                <div key={code} className="flex justify-between p-4 border-t">
+                  <div className="text-gray-900">{code}</div>
+                  <div className="font-bold">{currencyFormatter(rate)}</div>
+                </div>
+              );
+            })}
+        </div>
       </Paper>
     </Loading>
   );
