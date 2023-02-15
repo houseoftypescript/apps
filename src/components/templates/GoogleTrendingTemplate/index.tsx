@@ -23,7 +23,7 @@ export type TrendsByCountry = {
   trends: string[];
 };
 
-const Trends: React.FC = () => {
+const GoogleTrending: React.FC = () => {
   const url = `${BASE_URL}/google/trends`;
   const { loading, error, data } = useAxios<{
     trendsByNumber: Record<string, number>;
@@ -36,7 +36,7 @@ const Trends: React.FC = () => {
         <Paper>
           <Accordion>
             <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-              <h2 className="capitalize">Top Trends</h2>
+              <h2 className="capitalize">Top Trending</h2>
             </AccordionSummary>
             <AccordionDetails>
               <div className="flex flex-wrap gap-2">
@@ -108,16 +108,16 @@ const Trends: React.FC = () => {
   );
 };
 
-Trends.displayName = 'Trends';
+GoogleTrending.displayName = 'GoogleTrending';
 
-export const TrendsTemplate: React.FC = () => {
+export const GoogleTrendingTemplate: React.FC = () => {
   return (
     <Background backgroundImage={trends}>
       <div className="min-h-screen flex flex-col">
-        <Navbar icon={<TrendingUpIcon />} appName="Trends" />
+        <Navbar icon={<TrendingUpIcon />} appName="Google Trending" />
         <main className="grow">
           <Container>
-            <Trends />
+            <GoogleTrending />
           </Container>
         </main>
         <Footer />
@@ -126,6 +126,6 @@ export const TrendsTemplate: React.FC = () => {
   );
 };
 
-TrendsTemplate.displayName = 'TrendsTemplate';
+GoogleTrendingTemplate.displayName = 'GoogleTrendingTemplate';
 
-export default TrendsTemplate;
+export default GoogleTrendingTemplate;
