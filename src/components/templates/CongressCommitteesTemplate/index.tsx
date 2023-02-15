@@ -1,7 +1,6 @@
 import congressBackground from '@/assets/background/congress.jpeg';
 import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
-import Breadcrumbs from '@/components/organisms/Breadcrumbs';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import { BASE_URL } from '@/environments';
