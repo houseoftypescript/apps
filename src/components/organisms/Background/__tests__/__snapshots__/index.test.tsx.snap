@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Background to match snapshot 1`] = `
+<div>
+  <div
+    class="bg-fixed bg-center bg-cover text-white"
+    style="background-image: url(/img.jpg);"
+  >
+    <div
+      class="transition-all"
+      style="background-color: rgba(22, 25, 32, 0.5);"
+    />
+  </div>
+</div>
+`;

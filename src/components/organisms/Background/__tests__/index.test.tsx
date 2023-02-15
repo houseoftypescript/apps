@@ -1,12 +1,13 @@
+import search from '@/assets/background/search.jpeg';
 import { render } from '@testing-library/react';
-import { Loading } from '../index';
+import { Background } from '../index';
 
-describe('Loading', () => {
+describe('Background', () => {
   it('to match snapshot', () => {
     const { container } = render(
-      <Loading loading={true} error={null} data={null}>
+      <Background backgroundImage={search}>
         <></>
-      </Loading>
+      </Background>
     );
     expect(container).toMatchSnapshot();
   });

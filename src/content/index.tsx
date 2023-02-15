@@ -29,12 +29,6 @@ export const content = {
       icon: <CandlestickChartIcon />,
     },
     { id: 'maps', href: '/maps', title: 'maps', icon: <MapIcon /> },
-    {
-      id: 'congress',
-      href: '/congress',
-      title: 'congress',
-      icon: <PolicyIcon />,
-    },
   ],
 };
 
