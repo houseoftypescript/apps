@@ -2,7 +2,7 @@ import searchBackground from '@/assets/background/search.jpeg';
 import Background from '@/components/organisms/Background';
 import Navbar from '@/components/organisms/Navbar';
 import { Article } from '@/components/organisms/News';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import SearchIcon from '@mui/icons-material/Search';
 import Container from '@mui/material/Container';
@@ -14,7 +14,7 @@ import { useRouter } from 'next/router';
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 
 export const News = React.memo<{ query: string }>(({ query }) => {
-  const url = `${BASE_URL}/news?query=${query}&language=en`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/news?query=${query}&language=en`;
   const { loading, error, data, refetch } = useAxios<Article[]>(url);
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
@@ -24,7 +24,7 @@ export type TrendsByCountry = {
 };
 
 const GoogleTrending: React.FC = () => {
-  const url = `${BASE_URL}/google/trends`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/google/trends`;
   const { loading, error, data } = useAxios<{
     trendsByNumber: Record<string, number>;
     trendsByCountries: TrendsByCountry[];

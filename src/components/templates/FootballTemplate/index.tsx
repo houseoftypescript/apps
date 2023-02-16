@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SportsSoccerIcon from '@mui/icons-material/SportsSoccer';
@@ -39,7 +39,7 @@ type Match = {
 };
 
 export const Matches: React.FC = () => {
-  const url = `${BASE_URL}/football/teams/64/matches`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/football/teams/64/matches`;
   const { loading, error, data } = useAxios<Match[]>(url);
 
   const statuses: string[] = [

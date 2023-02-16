@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import addZero from '@/utils/add-zero';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -59,7 +59,7 @@ export type TimeZone = {
 };
 
 const TimeZones: React.FC = React.memo(() => {
-  const url = `${BASE_URL}/time-zones`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/time-zones`;
   const { loading, error, data } = useAxios<TimeZone[]>(url);
 
   const importantTimeZones = [

@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import currencyFormatter from '@/utils/currency-formatter';
 import { CurrencyExchange } from '@mui/icons-material';
@@ -29,7 +29,7 @@ const ForexRates = () => {
       rate: number;
       date: string;
     }[]
-  >(`${BASE_URL}/forex/rates`);
+  >(`${NEXT_PUBLIC_BASE_URL}/forex/rates`);
 
   const vndRate =
     data?.find(({ code }) => code.toUpperCase() === 'VND')?.rate || 0;

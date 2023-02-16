@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Map } from '@mui/icons-material';
 import { Paper, TableContainer, TableHead, TableRow } from '@mui/material';
@@ -34,7 +34,7 @@ type Country = {
 };
 
 const Countries: React.FC = () => {
-  const url = `${BASE_URL}/countries`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/countries`;
   const { loading, error, data } = useAxios<Country[]>(url);
 
   if (data) {

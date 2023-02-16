@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { YouTube } from '@mui/icons-material';
 import {
@@ -21,7 +21,7 @@ const CategorySelect: React.FC<{
   categoryId: string;
   changeCategoryId: (newCategoryId: string) => void;
 }> = React.memo(({ categoryId, changeCategoryId }) => {
-  const url = `${BASE_URL}/google/youtube/categories`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/google/youtube/categories`;
   const { loading, error, data } =
     useAxios<{ id: string; snippet: { title: string } }[]>(url);
 
@@ -58,7 +58,7 @@ const CountrySelect: React.FC<{
   regionCode: string;
   changeRegionCode: (newCode: string) => void;
 }> = React.memo(({ regionCode, changeRegionCode }) => {
-  const url = `${BASE_URL}/countries/codes`;
+  const url = `${NEXT_PUBLIC_BASE_URL}/countries/codes`;
   const { loading, error, data } =
     useAxios<{ name: string; cca2: string }[]>(url);
 
@@ -130,7 +130,7 @@ const YouTubeTrending: React.FC<{
     regionCode: string;
     videoCategoryId: string;
   }) => {
-    const url = `${BASE_URL}/google/youtube/trending?regionCode=${regionCode}&videoCategoryId=${videoCategoryId}`;
+    const url = `${NEXT_PUBLIC_BASE_URL}/google/youtube/trending?regionCode=${regionCode}&videoCategoryId=${videoCategoryId}`;
     const { loading, error, data, refetch } = useAxios<YouTubeVideo[]>(url);
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import News, { Article } from '@/components/organisms/News';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Search } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -14,7 +14,7 @@ import React, { ChangeEvent, FormEvent, useState } from 'react';
 
 const Headlines = React.memo<{ category: string; country: string }>(
   ({ category, country }) => {
-    const url = `${BASE_URL}/news/headlines?category=${category}&country=${country}&pageSize=16`;
+    const url = `${NEXT_PUBLIC_BASE_URL}/news/headlines?category=${category}&country=${country}&pageSize=16`;
     const { loading, error, data } = useAxios<Article[]>(url);
 
     return (

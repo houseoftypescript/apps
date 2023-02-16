@@ -2,7 +2,7 @@ import weather from '@/assets/background/weather.jpeg';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import { Cloud } from '@mui/icons-material';
 import { Container } from '@mui/material';
@@ -16,7 +16,7 @@ const Weather: React.FC<{ query: string }> = ({ query }) => {
     temperature: number;
     maxTemperature: number;
     minTemperature: number;
-  }>(`${BASE_URL}/weather?query=${encodeURIComponent(query)}`);
+  }>(`${NEXT_PUBLIC_BASE_URL}/weather?query=${encodeURIComponent(query)}`);
 
   if (loading) {
     return (

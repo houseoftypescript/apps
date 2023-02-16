@@ -3,7 +3,7 @@ import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
 import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
-import { BASE_URL } from '@/environments';
+import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
 import PolicyIcon from '@mui/icons-material/Policy';
 import Container from '@mui/material/Container';
@@ -24,7 +24,7 @@ type CongressCommittee = { id: string; name: string };
 
 const Committees: React.FC<{ chamber: string; congress: number }> = React.memo(
   ({ chamber = 'house', congress = 118 }) => {
-    const url = `${BASE_URL}/usa/congress/committees?congress=${congress}&chamber=${chamber}`;
+    const url = `${NEXT_PUBLIC_BASE_URL}/usa/congress/committees?congress=${congress}&chamber=${chamber}`;
     const { loading, error, data, refetch } =
       useAxios<CongressCommittee[]>(url);
 
