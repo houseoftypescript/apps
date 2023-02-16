@@ -11,6 +11,7 @@ import Container from '@mui/material/Container';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
+import Link from 'next/link';
 
 type Country = {
   name: {
@@ -60,8 +61,10 @@ const Countries: React.FC = () => {
                     <TableCell>{country.cca2}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <span className="text-xl">{country.flag}</span>
-                        <h3>{country.name.common}</h3>
+                        <Link href={`/countries/${country.cca3}`}>
+                          <span className="text-xl">{country.flag}</span>
+                          <h3>{country.name.common}</h3>
+                        </Link>
                       </div>
                     </TableCell>
                     <TableCell>{country.region}</TableCell>
@@ -77,11 +80,11 @@ const Countries: React.FC = () => {
   );
 };
 
-export const MapsTemplate: React.FC = () => {
+export const CountriesTemplate: React.FC = () => {
   return (
     <Background backgroundImage={maps}>
       <div className="min-h-screen flex flex-col">
-        <Navbar icon={<Map />} appName="maps" />
+        <Navbar icon={<Map />} appName="countries" />
         <main className="grow">
           <div className="h-full">
             <Container>
@@ -95,4 +98,6 @@ export const MapsTemplate: React.FC = () => {
   );
 };
 
-export default MapsTemplate;
+CountriesTemplate.displayName = 'CountriesTemplate';
+
+export default CountriesTemplate;
