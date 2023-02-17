@@ -28,7 +28,12 @@ export const content = {
       title: 'stock',
       icon: <CandlestickChartIcon />,
     },
-    { id: 'maps', href: '/maps', title: 'maps', icon: <MapIcon /> },
+    {
+      id: 'countries',
+      href: '/countries',
+      title: 'countries',
+      icon: <MapIcon />,
+    },
   ],
 };
 

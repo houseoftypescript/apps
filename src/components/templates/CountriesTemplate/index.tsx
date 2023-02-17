@@ -1,3 +1,4 @@
+import { Country } from '@/@types/countries';
 import maps from '@/assets/background/maps.jpeg';
 import Loading from '@/components/molecules/Loading';
 import Background from '@/components/organisms/Background';
@@ -5,33 +6,13 @@ import Footer from '@/components/organisms/Footer';
 import Navbar from '@/components/organisms/Navbar';
 import { NEXT_PUBLIC_BASE_URL } from '@/environments';
 import useAxios from '@/hooks/use-axios';
-import { Map } from '@mui/icons-material';
+import MapIcon from '@mui/icons-material/Map';
 import { Paper, TableContainer, TableHead, TableRow } from '@mui/material';
 import Container from '@mui/material/Container';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import Link from 'next/link';
-
-type Country = {
-  name: {
-    common: string;
-    official: string;
-    nativeName: {
-      isl: {
-        official: string;
-        common: string;
-      };
-    };
-  };
-  flag: string;
-  cca2: string;
-  cca3: string;
-  ccn3: string;
-  cioc: string;
-  region: string;
-  subregion: string;
-};
 
 const Countries: React.FC = () => {
   const url = `${NEXT_PUBLIC_BASE_URL}/countries`;
@@ -60,12 +41,13 @@ const Countries: React.FC = () => {
                   <TableRow key={country.cca2}>
                     <TableCell>{country.cca2}</TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Link href={`/countries/${country.cca3}`}>
-                          <span className="text-xl">{country.flag}</span>
-                          <h3>{country.name.common}</h3>
-                        </Link>
-                      </div>
+                      <Link
+                        href={`/countries/${country.cca3}`}
+                        className="flex items-center gap-2"
+                      >
+                        <span className="text-xl">{country.flag}</span>
+                        <h3>{country.name.common}</h3>
+                      </Link>
                     </TableCell>
                     <TableCell>{country.region}</TableCell>
                     <TableCell>{country.subregion}</TableCell>
@@ -84,7 +66,7 @@ export const CountriesTemplate: React.FC = () => {
   return (
     <Background backgroundImage={maps}>
       <div className="min-h-screen flex flex-col">
-        <Navbar icon={<Map />} appName="countries" />
+        <Navbar icon={<MapIcon />} appName="countries" />
         <main className="grow">
           <div className="h-full">
             <Container>

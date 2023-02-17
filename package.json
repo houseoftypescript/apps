@@ -22,6 +22,7 @@
     "prepare": "husky install || true"
   },
   "dependencies": {
+    "@apollo/client": "3.7.8",
     "@emotion/react": "11.10.6",
     "@emotion/styled": "11.10.6",
     "@fontsource/roboto": "4.5.8",
@@ -29,6 +30,7 @@
     "@mui/material": "5.11.9",
     "@next/font": "13.1.6",
     "axios": "1.3.3",
+    "graphql": "16.6.0",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
