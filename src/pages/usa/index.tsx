@@ -1,4 +1,4 @@
-import StatesTemplate from '@/components/templates/StatesTemplate';
+import StatesTemplate from '@/templates/StatesTemplate';
 import { NextPage } from 'next';
 
 const StatesPage: NextPage = () => <StatesTemplate />;

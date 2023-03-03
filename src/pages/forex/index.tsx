@@ -1,4 +1,4 @@
-import ForexTemplate from '@/components/templates/ForexTemplate';
+import ForexTemplate from '@/templates/ForexTemplate';
 import { NextPage } from 'next';
 
 const ForexPage: NextPage = () => <ForexTemplate />;

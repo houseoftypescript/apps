@@ -1,4 +1,4 @@
-import CongressTemplate from '@/components/templates/CongressTemplate';
+import CongressTemplate from '@/templates/CongressTemplate';
 import { NextPage } from 'next';
 
 const CongressPage: NextPage = () => <CongressTemplate />;

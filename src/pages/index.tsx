@@ -1,4 +1,4 @@
-import HomeTemplate from '@/components/templates/HomeTemplate';
+import HomeTemplate from '@/templates/HomeTemplate';
 import { NextPage } from 'next';
 
 const HomePage: NextPage = () => <HomeTemplate />;

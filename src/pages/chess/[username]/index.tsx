@@ -1,4 +1,4 @@
-import ChessPlayerTemplate from '@/components/templates/ChessPlayerTemplate';
+import ChessPlayerTemplate from '@/templates/ChessPlayerTemplate';
 import { NextPage } from 'next';
 
 const ChessPlayerPage: NextPage = () => <ChessPlayerTemplate />;

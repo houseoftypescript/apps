@@ -1,4 +1,4 @@
-import CountriesTemplate from '@/components/templates/CountriesTemplate';
+import CountriesTemplate from '@/templates/CountriesTemplate';
 import { NextPage } from 'next';
 
 const CountriesPage: NextPage = () => <CountriesTemplate />;

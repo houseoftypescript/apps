@@ -1,4 +1,4 @@
-import WeatherTemplate from '@/components/templates/WeatherTemplate';
+import WeatherTemplate from '@/templates/WeatherTemplate';
 import { NextPage } from 'next';
 
 const WeatherPage: NextPage = () => <WeatherTemplate />;

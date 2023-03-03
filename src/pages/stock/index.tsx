@@ -1,4 +1,4 @@
-import StockTemplate from '@/components/templates/StockTemplate';
+import StockTemplate from '@/templates/StockTemplate';
 import { NextPage } from 'next';
 
 const StockPage: NextPage = () => {

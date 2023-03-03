@@ -1,4 +1,4 @@
-import FootballTemplate from '@/components/templates/FootballTemplate';
+import FootballTemplate from '@/templates/FootballTemplate';
 import { NextPage } from 'next';
 
 const FootballPage: NextPage = () => <FootballTemplate />;
